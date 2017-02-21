@@ -6,8 +6,56 @@ import {
   getCategoriesSuccess,
   getCategoriesFailure,
   getCatSuccess,
-  getCatFailure
+  getCatFailure,
+  voteCatSuccess,
+  voteCatFailure,
+  getFavoritesSuccess,
+  getFavoritesFailure
 } from './CatAPI.actions';
+
+export const getFavoritesLogic = createLogic({
+  type           : ActionTypes.GET_FAVORITES,
+  latest         : true, // take latest only
+  processOptions : {
+    dispatchReturn : true,
+    successType    : getFavoritesSuccess,
+    failType       : getFavoritesFailure
+  },
+
+  // use CAT_API and axios injected as httpClient
+  // from configureStore logic deps
+  process({ httpClient, CAT_API }) {
+    return httpClient({
+      url : `${CAT_API.url}/favorites`,
+      crossDomain: true })
+    .map(payload => payload) // use entire response with data and headers
+    .catch((err) => {
+      console.log('Error on getting favorites: ' + err);
+    });
+  }
+});
+
+export const voteCatLogic = createLogic({
+  type           : ActionTypes.VOTE_CAT,
+  latest         : true, // take latest only
+  processOptions : {
+    dispatchReturn : true,
+    successType    : voteCatSuccess,
+    failType       : voteCatFailure
+  },
+
+  // use CAT_API and axios injected as httpClient
+  // from configureStore logic deps
+  process({ httpClient, CAT_API, action }) {
+    return httpClient({
+      url : `${CAT_API.url}/vote?image_id=${action.payload.image_id}&score=${action.payload.score}`,
+      crossDomain: true })
+    .map(payload => payload) // use entire response with data and headers
+    .catch((err) => {
+      console.log('Error on voting for cat: ' + err);
+    });
+  }
+});
 
 export const getCatLogic = createLogic({
   type           : ActionTypes.GET_CAT,
@@ -51,5 +99,7 @@ export const getCategoriesLogic = createLogic({
 
 export default [
   getCategoriesLogic,
-  getCatLogic
+  getCatLogic,
+  voteCatLogic,
+  getFavoritesLogic
 ];

@@ -8,30 +8,31 @@ import classnames             from 'classnames';
 // Action creators
 import {
   getCategories,
-  getCat } from '../logic/CatAPI.actions';
+  getFavorites,
+  getCat,
+  voteCat } from '../logic/CatAPI.actions';
 
 // Dumb components
-import { Select } from '../components/Select';
-import { Stars } from '../components/Stars';
-import { Cat } from '../components/Cat';
+import { Select }    from '../components/Select';
+import { Stars }     from '../components/Stars';
+import { Cat }       from '../components/Cat';
+import { Favorites } from '../components/Favorites';
 
 // Render entire app from here
 export class Home extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   //Invoked once, only on the client (not on the server),
   //immediately after the initial rendering occurs.
   componentWillMount() {
-    // Get the categories for cats
+    // Get the info from the server
+    this.props.getFavorites();
     this.props.getCategories();
     this.props.getCat();
   }
 
+  // Vote for a cat when clicked
   handleRatingClick(nextValue) {
-    console.log('rating', nextValue);
+    this.props.voteCat({ image_id: this.props.cat.id, score: nextValue });
   }
 
   render() {
@@ -61,7 +62,7 @@ export class Home extends Component {
           </Col>
           <Col xs={12} sm={8}>
             <div className="di-column">
-              <h2>Put carosel here</h2>
+              <Favorites items={this.props.favorites}/>
             </div>
           </Col>
         </Row>
@@ -71,11 +72,13 @@ export class Home extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-   return bindActionCreators( { getCategories, getCat }, dispatch);
+   return bindActionCreators( { getCategories, getCat, voteCat, getFavorites }, dispatch);
 };
 
 const mapStateToProps = (state) => {
   return {
+    favorites          : state.catAPIData.favorites,
+    favorites_loading  : state.catAPIData.favorites_loading,
     categories         : state.catAPIData.categories,
     categories_loading : state.catAPIData.categories_loading,
     cat                : state.catAPIData.cat,
