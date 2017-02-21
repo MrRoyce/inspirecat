@@ -15,7 +15,6 @@ export const getCategoriesSuccess = (res) => {
 };
 
 export const getCategoriesFailure = (err) => {
-  debugger;
   return {
     type: ActionTypes.LIST_CATEGORIES_FAIL,
     payload : {
@@ -25,7 +24,36 @@ export const getCategoriesFailure = (err) => {
   };
 };
 
+export const getCat = (category) => {
+  return {
+    type    : ActionTypes.GET_CAT,
+    payload : {
+      category
+    }
+  };
+};
+
+export const getCatSuccess = (res) => {
+  return  {type: ActionTypes.GET_CAT_SUCCESS,
+    payload : {
+      data   : res.response,
+      status : res.status
+    }};
+};
+
+export const getCatFailure = (err) => {
+  return {
+    type: ActionTypes.GET_CAT_FAIL,
+    payload : {
+      message : err
+    },
+    error: true
+  };
+};
+
 export const actions = {
   getCategoriesSuccess,
-  getCategoriesFailure
+  getCategoriesFailure,
+  getCatSuccess,
+  getCatFailure
 };

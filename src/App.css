@@ -22,3 +22,25 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.di-column {
+  border: 1px #bbb solid;
+  border-radius: 6px;
+  padding: 1em;
+}
+
+.dv-star-rating {
+  margin-top: 0.5em;
+}
+
+.dv-star-rating-star {
+  margin-right: 0.4em;
+}
+
+.panel-img {
+  margin: 1em auto 1em;
+}
+
+.form-control-label {
+  margin-top: 0.6em;
+}
