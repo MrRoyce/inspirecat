@@ -4,12 +4,12 @@ import Carousel from 'react-bootstrap/lib/Carousel';
 
 const getItem = (item, idx) => {
   return (
-    <Carousel.Item key={idx}>
+    (item.url) ?  <Carousel.Item key={idx}>
       <div className="carouselImg">
         <img width={900} height={500} alt="900x500" src={item.url}/>
       </div>
 
-    </Carousel.Item>
+    </Carousel.Item> : null
   );
 };
 

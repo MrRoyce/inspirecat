@@ -10,7 +10,9 @@ import {
   voteCatSuccess,
   voteCatFailure,
   getFavoritesSuccess,
-  getFavoritesFailure
+  getFavoritesFailure,
+  favoriteCatSuccess,
+  favoriteCatFailure
 } from './CatAPI.actions';
 
 export const getFavoritesLogic = createLogic({
@@ -31,6 +33,28 @@ export const getFavoritesLogic = createLogic({
     .map(payload => payload) // use entire response with data and headers
     .catch((err) => {
       console.log('Error on getting favorites: ' + err);
+    });
+  }
+});
+
+export const favoriteCatLogic = createLogic({
+  type           : ActionTypes.VOTE_CAT,
+  latest         : true, // take latest only
+  processOptions : {
+    dispatchReturn : true,
+    successType    : favoriteCatSuccess,
+    failType       : favoriteCatFailure
+  },
+
+  // use CAT_API and axios injected as httpClient
+  // from configureStore logic deps
+  process({ httpClient, CAT_API, action }) {
+    return httpClient({
+      url : `${CAT_API.url}/setfav?image_id=${action.payload.image_id}`,
+      crossDomain: true })
+    .map(payload => payload) // use entire response with data and headers
+    .catch((err) => {
+      console.log('Error on favoriting cat: ' + err);
     });
   }
 });
@@ -101,5 +125,6 @@ export default [
   getCategoriesLogic,
   getCatLogic,
   voteCatLogic,
-  getFavoritesLogic
+  getFavoritesLogic,
+  favoriteCatLogic
 ];

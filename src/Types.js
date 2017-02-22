@@ -11,8 +11,11 @@ export const VOTE_CAT         = 'VOTE_CAT';
 export const VOTE_CAT_SUCCESS = 'VOTE_CAT_SUCCESS';
 export const VOTE_CAT_FAIL    = 'VOTE_CAT_FAIL';
 
-export const FAVORITE_CAT    = 'FAVORITE_CAT';
 export const REPORT_CAT      = 'REPORT_CAT';
+
+export const FAVORITE_CAT         = 'FAVORITE_CAT';
+export const FAVORITE_CAT_SUCCESS = 'FAVORITE_CAT_SUCCESS';
+export const FAVORITE_CAT_FAIL    = 'FAVORITE_CAT_FAIL';
 
 export const GET_FAVORITES         = 'GET_FAVORITES';
 export const GET_FAVORITES_SUCCESS = 'GET_FAVORITES_SUCCESS';

@@ -103,6 +103,33 @@ export const getFavoritesFailure = (err) => {
   };
 };
 
+export const favoriteCat = ({ image_id }) => {
+  return {
+    type    : ActionTypes.FAVORITE_CAT,
+    payload : {
+      image_id
+    }
+  };
+};
+
+export const favoriteCatSuccess = (res) => {
+  return  {type: ActionTypes.FAVORITE_CAT_SUCCESS,
+    payload : {
+      data   : res.response,
+      status : res.status
+    }};
+};
+
+export const favoriteCatFailure = (err) => {
+  return {
+    type: ActionTypes.FAVORITE_CAT_FAIL,
+    payload : {
+      message : err
+    },
+    error: true
+  };
+};
+
 export const actions = {
   getCategoriesSuccess,
   getCategoriesFailure,
@@ -111,5 +138,7 @@ export const actions = {
   voteCatSuccess,
   voteCatFailure,
   getFavoritesSuccess,
-  getFavoritesFailure
+  getFavoritesFailure,
+  favoriteCatSuccess,
+  favoriteCatFailure
 };

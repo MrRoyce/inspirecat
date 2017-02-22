@@ -68,8 +68,9 @@ export class Home extends Component {
   render() {
 
     if ( !(this.props.categories) || (this.props.categories.length === 0) || (this.props.cat === null)) {
-      return null;
+      return <p>Loading...</p>;
     }
+
     return (
       <span>
         <Modal

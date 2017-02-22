@@ -9,9 +9,10 @@ const INITIAL_STATE = {
   getting_favorites  : false,
   cat_loading        : false,
   cat_voting         : false,
-  gets  : 0,
-  votes : 0,
-  favs  : 0
+  cat_favoriting     : false,
+  gets               : 0,
+  votes              : 0,
+  favs               : 0
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -39,12 +40,12 @@ export default function(state = INITIAL_STATE, action) {
 
     // Get a single cat
     case ActionTypes.GET_CAT:
+
       return { ...state,  cat_loading : true };
 
     case ActionTypes.GET_CAT_SUCCESS:
       count = state.gets;
       count++;
-
       // Get the 0th element of each object list!!
       acat = action.payload.data.map((cat) => {
         return { id: cat.id[0], url: cat.url[0], source_url: cat.source_url[0] };
@@ -71,13 +72,28 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, getting_favorites : true };
 
     case ActionTypes.GET_FAVORITES_SUCCESS:
+
+      // Check for invalid favorities
       favorites = action.payload.data.map((favorite) => {
-        return { id: favorite.id[0], url: favorite.url[0], sub_id: favorite.sub_id[0], created: favorite.created[0] };
+        return (favorite.id && favorite.url) ? { id: favorite.id[0], url: favorite.url[0], sub_id: favorite.sub_id[0], created: favorite.created[0] } : { };
       });
+
       return { ...state, getting_favorites : false, favorites : favorites };
 
     case ActionTypes.GET_FAVORITES_FAIL:
       return { ...state, getting_favorites : false, favorites: [] };
+
+    // Favorite a cat
+    case ActionTypes.FAVORITE_CAT:
+      return { ...state, cat_favoriting : true };
+
+    case ActionTypes.FAVORITE_CAT_SUCCESS:
+      count = state.favs;
+      count++;
+      return { ...state, cat_favoriting : false, favs : count };
+
+    case ActionTypes.FAVORITE_CAT_FAIL:
+      return { ...state, cat_favoriting : false };
 
     default:
       return state;

@@ -8,19 +8,20 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 // Stats
 export const
   Stats = (props) =>  {
+
     return (
       <div>
         <Col componentClass={ControlLabel} xs={props.labelSize}>
           Gets:
-            <FormControl readOnly type="text" defaultValue={props.gets} />
+            <FormControl readOnly type="text" value={props.gets} />
         </Col>
         <Col componentClass={ControlLabel} xs={props.labelSize}>
           Votes:
-            <FormControl readOnly type="text" defaultValue={props.votes} />
+            <FormControl readOnly type="text" value={props.votes} />
         </Col>
         <Col componentClass={ControlLabel} xs={props.labelSize}>
           Favs:
-            <FormControl readOnly type="text" defaultValue={props.favs} />
+            <FormControl readOnly type="text" value={props.favs} />
         </Col>
       </div>
     );
