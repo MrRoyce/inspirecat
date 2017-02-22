@@ -37,10 +37,30 @@
   margin-right: 0.4em;
 }
 
+.carouselImg img,
 .panel-img {
   margin: 1em auto 1em;
 }
 
+.carouselImg img {
+  width: auto;
+  height: 25em;
+}
+
+.cat-img {
+  max-height: 180px;
+  min-height: 180px;
+  min-width: auto;
+  min-height: auto;
+}
+
 .form-control-label {
   margin-top: 0.6em;
+}
+
+.modal-header {
+  color: white;
+  background-color: red;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }

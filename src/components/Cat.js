@@ -7,7 +7,7 @@ export const
   Cat = (props) =>  {
     return (
         <a href={props.source_url} target="_blank">
-          <Image className={classnames('img-responsive', 'panel-img')} rounded src={props.url} alt={props.id} />
+          <Image className={classnames('img-responsive', 'panel-img', 'cat-img')} rounded src={props.url} alt={props.id} />
         </a>
     );
   };

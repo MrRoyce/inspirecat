@@ -8,13 +8,16 @@ const INITIAL_STATE = {
   cat                : null,
   getting_favorites  : false,
   cat_loading        : false,
-  cat_voting         : false
+  cat_voting         : false,
+  gets  : 0,
+  votes : 0,
+  favs  : 0
 };
 
 export default function(state = INITIAL_STATE, action) {
 
   let
-    categories, acat, favorites
+    categories, acat, favorites, count
   ;
 
   switch (action.type) {
@@ -39,11 +42,14 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state,  cat_loading : true };
 
     case ActionTypes.GET_CAT_SUCCESS:
+      count = state.gets;
+      count++;
+
       // Get the 0th element of each object list!!
       acat = action.payload.data.map((cat) => {
         return { id: cat.id[0], url: cat.url[0], source_url: cat.source_url[0] };
       });
-      return { ...state, cat_loading : false, cat: acat[0] };
+      return { ...state, cat_loading : false, gets : count, cat: acat[0] };
 
     case ActionTypes.GET_CAT_FAIL:
       return { ...state, cat_loading : false, cat: null };
@@ -53,7 +59,9 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, cat_voting : true };
 
     case ActionTypes.VOTE_CAT_SUCCESS:
-      return { ...state, cat_voting : false };
+      count = state.votes;
+      count++;
+      return { ...state, cat_voting : false, votes : count };
 
     case ActionTypes.VOTE_CAT_FAIL:
       return { ...state, cat_voting : false };

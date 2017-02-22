@@ -5,7 +5,10 @@ import Carousel from 'react-bootstrap/lib/Carousel';
 const getItem = (item, idx) => {
   return (
     <Carousel.Item key={idx}>
-      <img width={900} height={500} alt="900x500" src={item.url}/>
+      <div className="carouselImg">
+        <img width={900} height={500} alt="900x500" src={item.url}/>
+      </div>
+
     </Carousel.Item>
   );
 };
