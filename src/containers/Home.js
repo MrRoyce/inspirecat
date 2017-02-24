@@ -6,10 +6,11 @@ import Row                    from 'react-bootstrap/lib/Row';
 import Button                 from 'react-bootstrap/lib/Button';
 import Col                    from 'react-bootstrap/lib/Col';
 import Modal                  from 'react-bootstrap/lib/Modal';
-import classnames             from 'classnames';
+//import classnames             from 'classnames';
 
 // Action creators
 import {
+  favoriteCat,
   getCategories,
   getFavorites,
   getCat,
@@ -61,6 +62,7 @@ export class Home extends Component {
   }
 
   favoriteButtonClicked() {
+    this.props.favoriteCat({ image_id: this.props.cat.id });
     this.props.getCat();
     this.setState({ showModal : !this.state.showModal });
   }
@@ -91,41 +93,42 @@ export class Home extends Component {
           </Modal.Footer>
         </Modal>
 
-          <Row>
+          <div className="di-column-wrapper" >
+            <div className="di-column-container" >
+              <Col xs={12} sm={4} >
+                <form className="form-horizontal">
+                  <div className="di-column">
+                    <Row>
+                      <Select options={this.props.categories} label="Categories"/>
+                    </Row>
+                    <Row>
+                      <Col className="text-center" >
+                        <Cat source_url={this.props.cat.source_url} url={this.props.cat.url} id={this.props.cat.id}/>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <div>
+                        <Stars label="Cat Rating" handleRatingClick={this.handleRatingClick.bind(this)}/>
+                      </div>
+                    </Row>
+                  </div>
+                </form>
+                <form>
+                  <div className="di-column di-stats">
+                    <Row>
+                    <Stats gets={this.props.gets} votes={this.props.votes} favs={this.props.favs}/>
+                  </Row>
+                  </div>
+                </form>
+              </Col>
 
-            <Col xs={12} sm={4} >
-              <form className="form-horizontal">
+              <Col xs={12} sm={8}>
                 <div className="di-column">
-                  <Row>
-                    <Select options={this.props.categories} label="Categories"/>
-                  </Row>
-                  <Row>
-                    <Col className={classnames('text-center')} >
-                      <Cat source_url={this.props.cat.source_url} url={this.props.cat.url} id={this.props.cat.id}/>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <div>
-                      <Stars label="Cat Rating" handleRatingClick={this.handleRatingClick.bind(this)}/>
-                    </div>
-                  </Row>
+                  <Favorites items={this.props.favorites}/>
                 </div>
-              </form>
-              <form>
-                <div className="di-column">
-                  <Row>
-                  <Stats gets={this.props.gets} votes={this.props.votes} favs={this.props.favs}/>
-                </Row>
-                </div>
-              </form>
-            </Col>
-
-            <Col xs={12} sm={8}>
-              <div className="di-column">
-                <Favorites items={this.props.favorites}/>
-              </div>
-            </Col>
-          </Row>
+              </Col>
+            </div>
+          </div>
 
       </span>
     );
@@ -133,7 +136,7 @@ export class Home extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-   return bindActionCreators( { getCategories, getCat, voteCat, getFavorites }, dispatch);
+   return bindActionCreators( { getCategories, getCat, voteCat, getFavorites, favoriteCat }, dispatch);
 };
 
 const mapStateToProps = (state) => {

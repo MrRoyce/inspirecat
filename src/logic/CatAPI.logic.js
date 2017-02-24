@@ -38,7 +38,7 @@ export const getFavoritesLogic = createLogic({
 });
 
 export const favoriteCatLogic = createLogic({
-  type           : ActionTypes.VOTE_CAT,
+  type           : ActionTypes.FAVORITE_CAT,
   latest         : true, // take latest only
   processOptions : {
     dispatchReturn : true,
