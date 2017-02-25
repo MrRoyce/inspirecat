@@ -2,7 +2,8 @@ import React               from 'react';
 import FormGroup           from 'react-bootstrap/lib/FormGroup';
 import ControlLabel        from 'react-bootstrap/lib/ControlLabel';
 import Col                 from 'react-bootstrap/lib/Col';
-import StarRatingComponent from 'react-star-rating-component';
+
+import StarRatingComponent from './Rating';
 
 // Generic Stars
 export const

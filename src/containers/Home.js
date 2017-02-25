@@ -110,7 +110,7 @@ export class Home extends Component {
           dialogClassName="favorite-cat-modal"
         >
           <Modal.Header closeButton>
-            <Modal.Title id='favorite-cat-title'>Thanks for voting!</Modal.Title>
+            <Modal.Title id='favorite-cat-title'>{`You voted that cat a ${this.state.rating}. Thanks for voting!`}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <h4>Would you like to set this cat as a favorite?</h4>
@@ -127,13 +127,13 @@ export class Home extends Component {
                 <form className="form-horizontal">
                   <div className="di-column">
                     <Row>
-                      <Select options={categories} label="Categories" onChange={this.handleCategoryChanged.bind(this)}/>
+                      <Select options={categories} label="Category" onChange={this.handleCategoryChanged.bind(this)}/>
                     </Row>
                     <Row>
                       <Col className="text-center" >
                         {(() => {  // iffe
                           switch (cat_loading) {
-                            // Don't show header if blank
+                            // Show loading gif if not loaded
                             case true: return (<div className='cat-img text-center panel-img'><Loading /></div> );
 
                             default: return (<Cat source_url={cat.source_url} url={cat.url} id={cat.id}/>);
