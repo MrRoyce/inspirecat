@@ -123,7 +123,7 @@ export class Home extends Component {
 
           <div className="di-column-wrapper" >
             <div className="di-column-container" >
-              <Col xs={12} sm={4} >
+              <Col xs={12} md={4}>
                 <form className="form-horizontal">
                   <div className="di-column">
                     <Row>
@@ -169,8 +169,8 @@ export class Home extends Component {
                 </form>
               </Col>
 
-              <Col xs={12} sm={8}>
-                <div className="di-column">
+              <Col xs={12} md={8}>
+                <div className="di-column di-favorites">
                   <Favorites
                     items={favorites}
                     onSelect={this.handleFavoriteSelected.bind(this)}

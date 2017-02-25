@@ -2,41 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.di-column-container {
-  position: absolute;
-  margin: 3em auto auto auto;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 35.2em;
-  width: 80em;
-  border: 1px #bbb solid;
-  border-radius: 6px;
-  padding: 1em 0;
-}
-
 .di-light {
   color: grey;
 }
@@ -46,6 +11,7 @@
   position: absolute;
   margin: 0;
   top: 30%;
+  left: 42%;
 }
 
 .carouselImg img,
@@ -111,4 +77,159 @@
   background-color: red;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+}
+
+/* Override bootstrap widths, make the container as large as window*/
+/* Without this, the hamburger menu doesnt show on some pages??*/
+/* Because the page width seems too large or the navbar gets truncated??*/
+
+/*==================================================
+=            Bootstrap 3 Media Queries             =
+==================================================*/
+
+/*==========  Mobile First Method  ==========*/
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+  .di-column-container{
+    border: none;
+    height: 100%;
+    width: 90%;
+    margin: 1em auto auto auto;
+  }
+
+  .di-favorites {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  .cat-img {
+    height: 180px;
+    max-width: 15em;
+  }
+
+  .di-column-wrapper {
+    position: static;
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+  .di-column-container{
+    border: none;
+    height: 100%;
+    width: 90%;
+    margin: 1em auto auto auto;
+  }
+
+  .di-favorites {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  .cat-img {
+    height: 180px;
+    max-width: 15em;
+  }
+
+  .di-column-wrapper {
+    position: static;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+  .di-column-container{
+    position: absolute;
+    margin: 3em auto auto auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 35.2em;
+    width: 100%;
+    border: none;
+    padding: 1em 0;
+  }
+
+  .di-favorites {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  .cat-img {
+    height: 180px;
+    max-width: 15em;
+  }
+
+  .di-column-wrapper {
+    position: absolute;;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+  .di-column-container{
+    position: absolute;
+    margin: 3em auto auto auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 35.2em;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    padding: 1em 0;
+  }
+  .di-column-wrapper {
+    position: absolute;;
+  }
+
+  .di-favorites {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+  .di-column-container{
+    position: absolute;
+    margin: 3em auto auto auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 35.2em;
+    width: 95%;
+    border: 1px #bbb solid;
+    border-radius: 6px;
+    padding: 1em 0;
+  }
+
+  .di-favorites {
+    margin-top: 0em;
+  }
+}
+
+/* Extra Large Devices, Wide Screens */
+@media only screen and (min-width : 1600px) {
+  .di-column-container{
+    position: absolute;
+    margin: 3em auto auto auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 35.2em;
+    width: 80%;
+    border: 1px #bbb solid;
+    border-radius: 6px;
+    padding: 1em 0;
+  }
+
+  .di-favorites {
+    margin-top: 0em;
+  }
 }
