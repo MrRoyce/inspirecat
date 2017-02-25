@@ -30,11 +30,37 @@
   right: 0;
   bottom: 0;
   left: 0;
-  height: 34em;
+  height: 35.2em;
   width: 80em;
   border: 1px #bbb solid;
   border-radius: 6px;
-  padding: 1em;
+  padding: 1em 0;
+}
+
+.di-light {
+  color: grey;
+}
+
+.di-spinner {
+  color: #a0d8ef;
+  position: absolute;
+  margin: 0;
+  top: 30%;
+}
+
+.carouselImg img,
+.panel-img {
+  margin: 1em auto 1em;
+}
+
+.carouselImg img {
+  width: auto;
+  height: 28.7em;
+}
+
+.cat-img {
+  height: 180px;
+  max-width: 22em;
 }
 
 .di-column-wrapper {
@@ -57,11 +83,15 @@
   border: 1px #bbb solid;
   border-radius: 6px;
   padding: 1em;
+  background-color: #f7f9f9;
+}
 
+.dv-number {
+  text-align: right;
 }
 
 .di-stats {
-  margin-top: 2em;
+  margin-top: 1em;
 }
 
 .dv-star-rating {
@@ -70,23 +100,6 @@
 
 .dv-star-rating-star {
   margin-right: 0.4em;
-}
-
-.carouselImg img,
-.panel-img {
-  margin: 1em auto 1em;
-}
-
-.carouselImg img {
-  width: auto;
-  height: 25em;
-}
-
-.cat-img {
-  max-height: 180px;
-  min-height: 180px;
-  min-width: auto;
-  min-height: auto;
 }
 
 .form-control-label {

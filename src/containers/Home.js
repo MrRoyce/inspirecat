@@ -17,6 +17,7 @@ import {
   voteCat } from '../logic/CatAPI.actions';
 
 // Dumb components
+import { Loading }   from '../components/Loading';
 import { Select }    from '../components/Select';
 import { Stars }     from '../components/Stars';
 import { Cat }       from '../components/Cat';
@@ -30,8 +31,13 @@ export class Home extends Component {
     super(props);
 
     this.state = {
-      showModal : false
+      showModal : false,
+      rating    : 0,
+      category  : 'All'
     };
+
+    this.closeButtonClicked = this.closeButtonClicked.bind(this);
+    this.getTheCat          = this.getTheCat.bind(this);
   }
 
   //Invoked once, only on the client (not on the server),
@@ -40,7 +46,7 @@ export class Home extends Component {
     // Get the info from the server
     this.props.getFavorites();
     this.props.getCategories();
-    this.props.getCat();
+    this.getTheCat();
   }
 
   // Vote for a cat when clicked
@@ -48,7 +54,7 @@ export class Home extends Component {
     this.props.voteCat({ image_id: this.props.cat.id, score: nextValue });
 
     // Show the favorite modal
-    this.setState({ showModal: true });
+    this.setState({ showModal: true, rating: nextValue });
   }
 
   // Toggle the modal open state
@@ -56,21 +62,43 @@ export class Home extends Component {
     this.setState({ showModal : !this.state.showModal });
   }
 
+  getTheCat() {
+    const
+      category = (this.state.category === 'All') ? false : this.state.category
+    ;
+    this.props.getCat(category);
+  }
+
   closeButtonClicked() {
-    this.props.getCat();
-    this.setState({ showModal : !this.state.showModal });
+    this.setState({ showModal : !this.state.showModal, rating: 0 }, () => {
+      this.getTheCat();
+    });
   }
 
   favoriteButtonClicked() {
     this.props.favoriteCat({ image_id: this.props.cat.id });
-    this.props.getCat();
-    this.setState({ showModal : !this.state.showModal });
+    this.props.getFavorites();
+    this.closeButtonClicked();  // set the state and get the next cat
+  }
+
+  handleCategoryChanged(event) {
+    this.setState({'category' : event.target.value}, () => {
+      this.getTheCat(); // Get a new cat for the category
+    });
+  }
+
+  handleFavoriteSelected(selectedIndex) {
+    console.log('selectedIndex: ' + selectedIndex);
   }
 
   render() {
 
-    if ( !(this.props.categories) || (this.props.categories.length === 0) || (this.props.cat === null)) {
-      return <p>Loading...</p>;
+    const
+      { favorites, categories, cat, cat_loading, gets, votes, favs } = this.props
+    ;
+
+    if ( !(categories) || (categories.length === 0) || (cat === null)) {
+      return <p>Fetching your cats...</p>;
     }
 
     return (
@@ -99,24 +127,43 @@ export class Home extends Component {
                 <form className="form-horizontal">
                   <div className="di-column">
                     <Row>
-                      <Select options={this.props.categories} label="Categories"/>
+                      <Select options={categories} label="Categories" onChange={this.handleCategoryChanged.bind(this)}/>
                     </Row>
                     <Row>
                       <Col className="text-center" >
-                        <Cat source_url={this.props.cat.source_url} url={this.props.cat.url} id={this.props.cat.id}/>
+                        {(() => {  // iffe
+                          switch (cat_loading) {
+                            // Don't show header if blank
+                            case true: return (<div className='cat-img text-center panel-img'><Loading /></div> );
+
+                            default: return (<Cat source_url={cat.source_url} url={cat.url} id={cat.id}/>);
+                          }
+                        })()}
+
                       </Col>
                     </Row>
                     <Row>
                       <div>
-                        <Stars label="Cat Rating" handleRatingClick={this.handleRatingClick.bind(this)}/>
+                        <Stars
+                          label="Rate a Cat" handleRatingClick={this.handleRatingClick.bind(this)} value={this.state.rating}
+                        />
                       </div>
+                    </Row>
+                    <Row>
+                      <Button onClick={() => {
+                        this.getTheCat();
+                      }}>Skip this cat!</Button>
                     </Row>
                   </div>
                 </form>
                 <form>
                   <div className="di-column di-stats">
                     <Row>
-                    <Stats gets={this.props.gets} votes={this.props.votes} favs={this.props.favs}/>
+                    <Stats
+                      gets={gets}
+                      votes={votes}
+                      favs={favs}
+                    />
                   </Row>
                   </div>
                 </form>
@@ -124,7 +171,10 @@ export class Home extends Component {
 
               <Col xs={12} sm={8}>
                 <div className="di-column">
-                  <Favorites items={this.props.favorites}/>
+                  <Favorites
+                    items={favorites}
+                    onSelect={this.handleFavoriteSelected.bind(this)}
+                  />
                 </div>
               </Col>
             </div>
@@ -140,17 +190,9 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const mapStateToProps = (state) => {
-  return {
-    favorites          : state.catAPIData.favorites,
-    favorites_loading  : state.catAPIData.favorites_loading,
-    categories         : state.catAPIData.categories,
-    categories_loading : state.catAPIData.categories_loading,
-    cat                : state.catAPIData.cat,
-    cat_loading        : state.catAPIData.cat_loading,
-    gets               : state.catAPIData.gets,
-    votes              : state.catAPIData.votes,
-    favs               : state.catAPIData.favs
-  };
+  const
+    { favorites, categories, cat, cat_loading, gets, votes,  favs } = state.catAPIData;
+  return { favorites, categories, cat, cat_loading, gets, votes, favs };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

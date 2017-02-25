@@ -15,7 +15,7 @@ export const
         <Col sm={props.panelSize}>
           <FormGroup controlId="formStarRating">
             <StarRatingComponent
-              name="stars"
+              name={"stars"}
               renderStarIcon={() => <span><i className="fa fa-github"></i></span>}
               starCount={10}
               onStarClick={props.handleRatingClick}

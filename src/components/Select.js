@@ -5,7 +5,7 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Col          from 'react-bootstrap/lib/Col';
 
 const getOption = (option) => {
-  return (<option value={option.id} key={option.id}>{option.name}</option>);
+  return (<option value={option.name} key={option.id}>{option.name}</option>);
 };
 
 // Generic Select
@@ -17,12 +17,13 @@ export const
           {props.label}:
         </Col>
         <Col sm={props.panelSize}>
-
-            <FormControl componentClass="select" placeholder="Category...">
-              <option value="0">All</option>
+          <FormControl
+            componentClass="select"
+            onChange={props.onChange}
+            placeholder="Category...">
+              <option value="All">All</option>
               {props.options.map(getOption)}
-            </FormControl>
-
+          </FormControl>
         </Col>
       </span>
     );

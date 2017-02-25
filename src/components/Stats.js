@@ -12,16 +12,16 @@ export const
     return (
       <div>
         <Col componentClass={ControlLabel} xs={props.labelSize}>
-          Gets:
-            <FormControl readOnly type="text" value={props.gets} />
+          Cats:
+            <FormControl readOnly bsClass={'form-control dv-number'} type="text" value={props.gets} />
         </Col>
         <Col componentClass={ControlLabel} xs={props.labelSize}>
           Votes:
-            <FormControl readOnly type="text" value={props.votes} />
+            <FormControl readOnly bsClass={'form-control dv-number'} type="text" value={props.votes} />
         </Col>
         <Col componentClass={ControlLabel} xs={props.labelSize}>
           Favs:
-            <FormControl readOnly type="text" value={props.favs} />
+            <FormControl readOnly bsClass={'form-control dv-number'} type="text" value={props.favs} />
         </Col>
       </div>
     );

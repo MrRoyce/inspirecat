@@ -92,8 +92,14 @@ export const getCatLogic = createLogic({
 
   // use CAT_API and axios injected as httpClient
   // from configureStore logic deps
-  process({ httpClient, CAT_API }) {
-    return httpClient({ url : `${CAT_API.url}/cat`, crossDomain: true})
+  process({ httpClient, CAT_API, action }) {
+
+    const
+      // add the category if it was passed in
+      category = (action.payload.category) ? `?category=${action.payload.category}` : ''
+    ;
+
+    return httpClient({ url : `${CAT_API.url}/cat${category}`, crossDomain: true})
     .map(payload => payload) // use entire response with data and headers
     .catch((err) => {
       console.log('Error on getting cat: ' + err);
