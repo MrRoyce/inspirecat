@@ -4750,6 +4750,14 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+redux-logic-test@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/redux-logic-test/-/redux-logic-test-1.0.3.tgz#dd37e622c82e64d161543fc91e876e84e21c0a30"
+  dependencies:
+    is-observable "^0.2.0"
+    is-promise "^2.1.0"
+    loose-envify "^1.2.0"
+
 redux-logic@^0.11.6:
   version "0.11.6"
   resolved "https://registry.yarnpkg.com/redux-logic/-/redux-logic-0.11.6.tgz#79054deb26b6127dd7de4e007c45a700ddcd6553"
