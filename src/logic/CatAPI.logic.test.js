@@ -28,9 +28,8 @@ const
   ];
 
 const httpClient = () => {
-  return Observable.of({ // match shape of reqres.in api
-    data: categories,
-    map: (payload) =>  payload 
+  return Observable.of({ // match shape of api results
+    data: categories
   });
 };
 
@@ -51,10 +50,10 @@ const store = createMockStore({
 
 it('gets the correct categories', () => {
   store.dispatch({ type: ActionTypes.LIST_CATEGORIES }); // start fetching
-  store.whenComplete(() => { // all logic has completed
+  return store.whenComplete(() => { // all logic has completed
     expect(store.actions).toEqual([
       { type: ActionTypes.LIST_CATEGORIES },
-      { type: ActionTypes.LIST_CATEGORIES_SUCCESS, payload: {} }
+      { type: ActionTypes.LIST_CATEGORIES_SUCCESS, payload: categories }
     ]);
   });
 });
