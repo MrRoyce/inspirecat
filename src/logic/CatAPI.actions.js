@@ -1,13 +1,17 @@
 import * as ActionTypes   from '../Types';
+//import util from 'util';
 
 export const getCategories = () => {
   return {
-    type    : ActionTypes.LIST_CATEGORIES
+    type : ActionTypes.LIST_CATEGORIES
   };
 };
 
 export const getCategoriesSuccess = (res) => {
-  return  {type: ActionTypes.LIST_CATEGORIES_SUCCESS,
+  //console.log(' in action res.response: ' + util.inspect(res.response, false, null));
+  //console.log(' in action res.status: ' + res.status);
+  return  {
+    type    : ActionTypes.LIST_CATEGORIES_SUCCESS,
     payload : {
       data   : res.response,
       status : res.status
@@ -34,7 +38,8 @@ export const getCat = (category) => {
 };
 
 export const getCatSuccess = (res) => {
-  return  {type: ActionTypes.GET_CAT_SUCCESS,
+  return  {
+    type    : ActionTypes.GET_CAT_SUCCESS,
     payload : {
       data   : res.response,
       status : res.status
@@ -43,7 +48,7 @@ export const getCatSuccess = (res) => {
 
 export const getCatFailure = (err) => {
   return {
-    type: ActionTypes.GET_CAT_FAIL,
+    type    : ActionTypes.GET_CAT_FAIL,
     payload : {
       message : err
     },
@@ -71,7 +76,7 @@ export const voteCatSuccess = (res) => {
 
 export const voteCatFailure = (err) => {
   return {
-    type: ActionTypes.VOTE_CAT_FAIL,
+    type    : ActionTypes.VOTE_CAT_FAIL,
     payload : {
       message : err
     },
@@ -81,12 +86,13 @@ export const voteCatFailure = (err) => {
 
 export const getFavorites = () => {
   return {
-    type    : ActionTypes.GET_FAVORITES
+    type : ActionTypes.GET_FAVORITES
   };
 };
 
 export const getFavoritesSuccess = (res) => {
-  return  {type: ActionTypes.GET_FAVORITES_SUCCESS,
+  return  {
+    type    : ActionTypes.GET_FAVORITES_SUCCESS,
     payload : {
       data   : res.response,
       status : res.status
@@ -95,7 +101,7 @@ export const getFavoritesSuccess = (res) => {
 
 export const getFavoritesFailure = (err) => {
   return {
-    type: ActionTypes.GET_FAVORITES_FAIL,
+    type    : ActionTypes.GET_FAVORITES_FAIL,
     payload : {
       message : err
     },
@@ -113,7 +119,8 @@ export const favoriteCat = ({ image_id }) => {
 };
 
 export const favoriteCatSuccess = (res) => {
-  return  {type: ActionTypes.FAVORITE_CAT_SUCCESS,
+  return  {
+    type    : ActionTypes.FAVORITE_CAT_SUCCESS,
     payload : {
       data   : res.response,
       status : res.status
@@ -122,7 +129,7 @@ export const favoriteCatSuccess = (res) => {
 
 export const favoriteCatFailure = (err) => {
   return {
-    type: ActionTypes.FAVORITE_CAT_FAIL,
+    type    : ActionTypes.FAVORITE_CAT_FAIL,
     payload : {
       message : err
     },

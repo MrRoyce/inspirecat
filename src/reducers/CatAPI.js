@@ -1,4 +1,5 @@
 import * as ActionTypes   from '../Types';
+import util from 'util';
 
 const INITIAL_STATE = {
   categories         : [],
@@ -28,10 +29,14 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state,  categories_loading : true };
 
     case ActionTypes.LIST_CATEGORIES_SUCCESS:
+    
+    console.log(' in reducer action: ' +  util.inspect(action, false, null));
       // Get the 0th element of each object list!!
       categories = action.payload.data.map((category) => {
         return { id: category.id[0], name: category.name[0] };
       });
+
+      console.log('categories are completed: ' +  util.inspect(categories, false, null));
 
       return { ...state, categories_loading : false, categories: categories };
 

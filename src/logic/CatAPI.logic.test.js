@@ -24,12 +24,12 @@ const INITIAL_STATE = {
 
 const
   categories = [
-    { name : 'test1'}
-  ];
+    {"id":["1"], "name":["hats"]}, {"id":["2"], "name":["space"]}, {"id":["3"], "name":["funny"]}, {"id":["4"], "name":["sunglasses"]}, {"id":["5"], "name":["boxes"]}, {"id":["6"], "name":["caturday"]}, {"id":["7"], "name":["ties"]}, {"id":["9"], "name":["dream"]}, {"id":["10"], "name":["kittens"]}];
 
 const httpClient = () => {
   return Observable.of({ // match shape of api results
-    data: categories
+    response : categories,
+    status   : 200
   });
 };
 
@@ -48,12 +48,15 @@ const store = createMockStore({
   injectedDeps
 });
 
-it('gets the correct categories', () => {
+it('gets the correct categories', (done) => {
+  store.logicMiddleware.monitor$.subscribe(console.log);
   store.dispatch({ type: ActionTypes.LIST_CATEGORIES }); // start fetching
-  return store.whenComplete(() => { // all logic has completed
-    expect(store.actions).toEqual([
+  store.whenComplete(() => { // all logic has completed
+    expect(store.actions).to.equal([
       { type: ActionTypes.LIST_CATEGORIES },
       { type: ActionTypes.LIST_CATEGORIES_SUCCESS, payload: categories }
     ]);
+
+    done();
   });
 });

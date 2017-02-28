@@ -88,7 +88,7 @@ export class Home extends Component {
   }
 
   handleFavoriteSelected(selectedIndex) {
-    console.log('selectedIndex: ' + selectedIndex);
+    //console.log('selectedIndex: ' + selectedIndex);
   }
 
   render() {

@@ -1,4 +1,5 @@
 import { createLogic }  from 'redux-logic';
+import { Observable }          from 'rxjs';
 
 import * as ActionTypes   from '../Types';
 
@@ -24,7 +25,7 @@ export const getFavoritesLogic = createLogic({
     failType       : getFavoritesFailure
   },
 
-  // use CAT_API and axios injected as httpClient
+  // use CAT_API injected as httpClient
   // from configureStore logic deps
   process({ httpClient, CAT_API }) {
     return httpClient({
@@ -46,15 +47,16 @@ export const favoriteCatLogic = createLogic({
     failType       : favoriteCatFailure
   },
 
-  // use CAT_API and axios injected as httpClient
+  // use CAT_API injected as httpClient
   // from configureStore logic deps
   process({ httpClient, CAT_API, action }) {
     return httpClient({
       url : `${CAT_API.url}/setfav?image_id=${action.payload.image_id}`,
       crossDomain: true })
-    .map(payload => payload) // use entire response with data and headers
+    .map(payload => payload) 
     .catch((err) => {
       console.log('Error on favoriting cat: ' + err);
+      return Observable.throw(err);
     });
   }
 });
@@ -68,7 +70,7 @@ export const voteCatLogic = createLogic({
     failType       : voteCatFailure
   },
 
-  // use CAT_API and axios injected as httpClient
+  // use CAT_API injected as httpClient
   // from configureStore logic deps
   process({ httpClient, CAT_API, action }) {
     return httpClient({
@@ -90,7 +92,7 @@ export const getCatLogic = createLogic({
     failType       : getCatFailure
   },
 
-  // use CAT_API and axios injected as httpClient
+  // use CAT_API injected as httpClient
   // from configureStore logic deps
   process({ httpClient, CAT_API, action }) {
 
@@ -116,7 +118,7 @@ export const getCategoriesLogic = createLogic({
     failType       : getCategoriesFailure
   },
 
-  // use CAT_API and axios injected as httpClient
+  // use CAT_API injected as httpClient
   // from configureStore logic deps
   process({ httpClient, CAT_API }) {
     return httpClient({ url : `${CAT_API.url}/categories`, crossDomain: true})
