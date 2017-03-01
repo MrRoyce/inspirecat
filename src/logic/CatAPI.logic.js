@@ -30,10 +30,12 @@ export const getFavoritesLogic = createLogic({
   process({ httpClient, CAT_API }) {
     return httpClient({
       url : `${CAT_API.url}/favorites`,
-      crossDomain: true })
-    .map(payload => payload) // use entire response with data and headers
+      crossDomain: true,
+      responseType: 'json'
+    })
     .catch((err) => {
       console.log('Error on getting favorites: ' + err);
+      return Observable.throw(err);
     });
   }
 });
@@ -52,8 +54,9 @@ export const favoriteCatLogic = createLogic({
   process({ httpClient, CAT_API, action }) {
     return httpClient({
       url : `${CAT_API.url}/setfav?image_id=${action.payload.image_id}`,
-      crossDomain: true })
-    .map(payload => payload) 
+      crossDomain: true,
+      responseType: 'json'
+    })
     .catch((err) => {
       console.log('Error on favoriting cat: ' + err);
       return Observable.throw(err);
@@ -75,10 +78,12 @@ export const voteCatLogic = createLogic({
   process({ httpClient, CAT_API, action }) {
     return httpClient({
       url : `${CAT_API.url}/vote?image_id=${action.payload.image_id}&score=${action.payload.score}`,
-      crossDomain: true })
-    .map(payload => payload) // use entire response with data and headers
+      crossDomain: true,
+      responseType: 'json'
+    })
     .catch((err) => {
       console.log('Error on voting for cat: ' + err);
+      return Observable.throw(err);
     });
   }
 });
@@ -101,10 +106,14 @@ export const getCatLogic = createLogic({
       category = (action.payload.category) ? `?category=${action.payload.category}` : ''
     ;
 
-    return httpClient({ url : `${CAT_API.url}/cat${category}`, crossDomain: true})
-    .map(payload => payload) // use entire response with data and headers
+    return httpClient({
+      url : `${CAT_API.url}/cat${category}`,
+      crossDomain: true,
+      responseType: 'json'
+    })
     .catch((err) => {
       console.log('Error on getting cat: ' + err);
+      return Observable.throw(err);
     });
   }
 });
@@ -121,10 +130,14 @@ export const getCategoriesLogic = createLogic({
   // use CAT_API injected as httpClient
   // from configureStore logic deps
   process({ httpClient, CAT_API }) {
-    return httpClient({ url : `${CAT_API.url}/categories`, crossDomain: true})
-    .map(payload => payload) // use entire response with data and headers
+    return httpClient({
+      url : `${CAT_API.url}/categories`,
+      crossDomain: true,
+      responseType: 'json'
+    })
     .catch((err) => {
       console.log('Error on getting categories: ' + err);
+      return Observable.throw(err);
     });
   }
 });
