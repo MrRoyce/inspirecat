@@ -48,15 +48,17 @@ const store = createMockStore({
   injectedDeps
 });
 
-it('gets the correct categories', (done) => {
-  store.logicMiddleware.monitor$.subscribe(console.log);
+it('gets the correct categories', () => {
   store.dispatch({ type: ActionTypes.LIST_CATEGORIES }); // start fetching
-  store.whenComplete(() => { // all logic has completed
-    expect(store.actions).to.equal([
+  return store.whenComplete(() => { // all logic has completed
+    expect(store.actions).to.eql([
       { type: ActionTypes.LIST_CATEGORIES },
-      { type: ActionTypes.LIST_CATEGORIES_SUCCESS, payload: categories }
+      { type: ActionTypes.LIST_CATEGORIES_SUCCESS,
+        payload: {
+          data: categories,
+          status: 200
+        }
+      }
     ]);
-
-    done();
   });
 });
